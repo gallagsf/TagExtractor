@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -6,21 +7,34 @@ import java.io.FileNotFoundException;
 
 public class WordCounter {
     Map<String, Integer> wordCount = new TreeMap<>();
-    Scanner in;
+    HashSet<String> stopWords = new HashSet<>();
+
 
     WordCounter(){}
 
+    public void AddStopWordsFile(String filename) throws FileNotFoundException{
+        Scanner in = new Scanner(new File(filename));
+        while (in.hasNext()){
+            stopWords.add(in.next());
+        }
+    }
+
     public void CountWordFrequency(String filename) throws FileNotFoundException{
-        in = new Scanner(new File(filename));
+        Scanner in = new Scanner(new File(filename));
         while (in.hasNext()) {
             String beingChecked = Clean(in.next());
 
             Integer count = wordCount.get(beingChecked);
 
-            if (count == null) {count = 1;}
-            else {count += 1;}
-
-            wordCount.put(beingChecked, count);
+            if (stopWords.contains(beingChecked)) {}
+            else if (count == null) {
+                count = 1;
+                wordCount.put(beingChecked, count);
+            }
+            else {
+                count += 1;
+                wordCount.put(beingChecked, count);
+            }
         }
     }
 
