@@ -14,15 +14,16 @@ public class WordCounter {
 
     WordCounter(){}
 
-    public void AddStopWordsFile(String filename) throws FileNotFoundException{
-        Scanner in = new Scanner(new File(filename));
+    public void AddStopWordsFile(File selectedFile) throws FileNotFoundException{
+        Scanner in = new Scanner(selectedFile);
         while (in.hasNext()){
             stopWords.add(in.next());
         }
     }
 
-    public void CountWordFrequency(String filename) throws FileNotFoundException{
-        Scanner in = new Scanner(new File(filename));
+    public void CountWordFrequency(File selectedFile) throws FileNotFoundException{
+        Scanner in = new Scanner(selectedFile);
+        wordCount.clear();
         while (in.hasNext()) {
             String beingChecked = Clean(in.next());
 
