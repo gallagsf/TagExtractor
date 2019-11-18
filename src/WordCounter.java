@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
@@ -50,6 +52,22 @@ public class WordCounter {
     public void PrintFrequencies(){
         for (String key : wordCount.keySet()){
             System.out.printf("%s %20d\n", key, wordCount.get(key));
+        }
+    }
+
+    public void SaveFrequencies (String filename) throws IOException {
+        File file = new File(filename);
+
+        if (file.createNewFile()){
+            System.out.println("File is created!");
+            FileWriter writer = new FileWriter(file);
+            String toSave = wordCount.toString();
+            toSave = toSave.replaceAll(", ", "\n");
+            toSave = toSave.replaceAll("=", ": ");
+            writer.write(toSave);
+            writer.close();
+        }else{
+            System.out.println("File already exists.");
         }
     }
 }
