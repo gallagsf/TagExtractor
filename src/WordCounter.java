@@ -65,6 +65,8 @@ public class WordCounter {
             String toSave = wordCount.toString();
             toSave = toSave.replaceAll(", ", "\n");
             toSave = toSave.replaceAll("=", ": ");
+            toSave = toSave.replaceAll("}", "");
+            toSave = toSave.replaceAll("\\{", "#");
             writer.write(toSave);
             writer.close();
         }else{
